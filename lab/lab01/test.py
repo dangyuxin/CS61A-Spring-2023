@@ -1,3 +1,9 @@
 #!/usr/bin/python3
  
-print(288%100//10)
+def square_twice(f,x):
+    return f(f(x))
+
+def square(x):
+    return x**2
+
+print(square_twice(square,2))
