@@ -1,0 +1,65 @@
+=====================================================================
+Assignment: Lab 1
+OK, version v1.18.1
+=====================================================================
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Unlocking tests
+
+At each "? ", type what you would expect the output to be.
+Type exit() to quit
+
+---------------------------------------------------------------------
+debugging-quiz > Suite 1 > Case 1
+(cases remaining: 8)
+
+-- Already unlocked --
+
+---------------------------------------------------------------------
+debugging-quiz > Suite 1 > Case 2
+(cases remaining: 7)
+
+-- Already unlocked --
+
+---------------------------------------------------------------------
+debugging-quiz > Suite 1 > Case 3
+(cases remaining: 6)
+
+-- Already unlocked --
+
+---------------------------------------------------------------------
+debugging-quiz > Suite 1 > Case 4
+(cases remaining: 5)
+
+-- Already unlocked --
+
+---------------------------------------------------------------------
+debugging-quiz > Suite 1 > Case 5
+(cases remaining: 4)
+
+-- Already unlocked --
+
+---------------------------------------------------------------------
+debugging-quiz > Suite 1 > Case 6
+(cases remaining: 3)
+
+-- Already unlocked --
+
+---------------------------------------------------------------------
+debugging-quiz > Suite 1 > Case 7
+(cases remaining: 2)
+
+-- Already unlocked --
+
+---------------------------------------------------------------------
+debugging-quiz > Suite 1 > Case 8
+(cases remaining: 1)
+
+-- Already unlocked --
+
+---------------------------------------------------------------------
+OK! All cases for debugging-quiz unlocked.
+
+Backup... 0.0% complete
+
+OK is up to date
