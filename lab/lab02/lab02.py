@@ -32,6 +32,7 @@ def composite_identity(f, g):
     False
     """
     "*** YOUR CODE HERE ***"
+    return lambda x: f(g(x))==g(f(x))
 
 
 def count_cond(condition):
@@ -62,6 +63,15 @@ def count_cond(condition):
     8
     """
     "*** YOUR CODE HERE ***"
+    def f(n):
+        i=1
+        count=0
+        while i<=n:
+            if condition(n,i):
+                count+=1
+            i+=1
+        return count
+    return f
 
 
 def multiple(a, b):
@@ -73,6 +83,15 @@ def multiple(a, b):
     42
     """
     "*** YOUR CODE HERE ***"
+    if a % b == 0:
+        return a
+    if b % a == 0:
+        return b
+    sum = max(a,b)+1
+    while sum % a != 0 or sum % b != 0:
+        sum+=1
+    return sum
+    
 
 
 def cycle(f1, f2, f3):
@@ -102,3 +121,18 @@ def cycle(f1, f2, f3):
     19
     """
     "*** YOUR CODE HERE ***"
+    def process(n):
+        def action(x):
+            k = n
+            while k > 0:
+                no = (n - k ) % 3
+                if no == 0:
+                    x = f1(x)
+                elif no == 1:
+                    x = f2(x)
+                elif no == 2:
+                    x = f3(x)
+                k -= 1
+            return x
+        return action
+    return process
