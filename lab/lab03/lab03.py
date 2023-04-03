@@ -29,6 +29,13 @@ def ordered_digits(x):
 
     """
     "*** YOUR CODE HERE ***"
+    
+    while x>9:
+        if(x%10<x//10%10):
+            return False
+        x/=10
+    
+    return True
 
 
 def get_k_run_starter(n, k):
@@ -52,13 +59,14 @@ def get_k_run_starter(n, k):
     """
     i = 0
     final = None
-    while ____________________________:
-        while ____________________________:
-            ____________________________
-        final = ____________________________
-        i = ____________________________
-        n = ____________________________
+    while i < k+1:
+        while (n // 10) % 10 < n % 10 and n // 10:
+            n = n // 10
+        final = n % 10
+        i = i + 1
+        n = n // 10
     return final
+
 
 
 def make_repeater(func, n):
@@ -77,6 +85,13 @@ def make_repeater(func, n):
     5
     """
     "*** YOUR CODE HERE ***"
+    def f(x):
+        make = n
+        while make>0:
+            x=func(x)
+            make-=1
+        return x
+    return f
 
 
 def composer(func1, func2):
@@ -95,6 +110,7 @@ def apply_twice(func):
     16
     """
     "*** YOUR CODE HERE ***"
+    return composer(func,func)
 
 
 def div_by_primes_under(n):
@@ -109,13 +125,12 @@ def div_by_primes_under(n):
     False
     """
     checker = lambda x: False
-    i = ____________________________
-    while ____________________________:
+    i = 2
+    while i <= n:
         if not checker(i):
-            checker = ____________________________
-        i = ____________________________
-    return ____________________________
-
+            checker = (lambda f, i: lambda x: x % i == 0 or f(x))(checker, i)
+        i = i + 1
+    return checker
 
 def div_by_primes_under_no_lambda(n):
     """
@@ -130,13 +145,13 @@ def div_by_primes_under_no_lambda(n):
     """
     def checker(x):
         return False
-    i = ____________________________
-    while ____________________________:
+    i = 2
+    while i <= n:
         if not checker(i):
-            def outer(____________________________):
-                def inner(____________________________):
-                    return ____________________________
-                return ____________________________
-            checker = ____________________________
-        i = ____________________________
-    return ____________________________
+            def outer(f, i):
+                def inner(x):
+                    return x % i == 0 or f(x)
+                return inner
+            checker = outer(checker, i)
+        i = i + 1
+    return checker
