@@ -24,7 +24,17 @@ def roll_dice(num_rolls, dice=six_sided):
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
     # END PROBLEM 1
-
+    sum = 0
+    while(num_rolls>0):
+        num_rolls-=1
+        n = dice()
+        if(n==1):
+            while(num_rolls>0):
+                num_rolls-=1
+                dice()
+            return 1
+        sum +=n
+    return sum
 
 def tail_points(opponent_score):
     """Return the points scored by rolling 0 dice according to Pig Tail.
@@ -35,6 +45,10 @@ def tail_points(opponent_score):
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
     # END PROBLEM 2
+    init = opponent_score%10-opponent_score%100//10
+    if init<0:
+        init=-init
+    return 2*init+1
 
 
 def take_turn(num_rolls, opponent_score, dice=six_sided):
@@ -52,6 +66,25 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
     # END PROBLEM 3
+    if(num_rolls==0):
+        return tail_points(opponent_score)
+    return roll_dice(num_rolls,dice)
+
+def perfect_square(n):
+    a = 1
+    while a<13 and n>=a*a:
+        if a*a == n:
+            return True
+        a+=1
+    return False
+
+def next_perfect_square(n):
+    a = 1
+    while a<13:
+        if a*a==n:
+            return a*a+2*a+1
+        a+=1
+
 
 
 def simple_update(num_rolls, player_score, opponent_score, dice=six_sided):
@@ -114,7 +147,15 @@ def play(strategy0, strategy1, update,
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
     # END PROBLEM 5
-    return score0, score1
+    x ,y=score0,score1
+    while x<goal and y<goal:
+        if who == 0:
+            x = update(strategy0(x,y),x,y,dice)
+            who = 1
+        else:
+            y= update(strategy1(y,x),y,x,dice)
+            who = 0
+    return x,y
 
 
 #######################
@@ -139,6 +180,7 @@ def always_roll(n):
     # BEGIN PROBLEM 6
     "*** YOUR CODE HERE ***"
     # END PROBLEM 6
+    return lambda x,y: n
 
 
 def catch_up(score, opponent_score):
@@ -168,6 +210,17 @@ def is_always_roll(strategy, goal=GOAL):
     """
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
+    x = 0
+    while x<100:
+        y = 0
+        while y<100:
+            a = strategy(x,y)
+            b = strategy(x,y+1)
+            if a!=b:
+                return False
+            y+=1
+        x+=1
+    return True
     # END PROBLEM 7
 
 
