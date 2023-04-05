@@ -224,7 +224,7 @@ def is_always_roll(strategy, goal=GOAL):
     # END PROBLEM 7
 
 
-def make_averaged(original_function, total_samples=1000):
+def make_averaged(fn, num_samples=1000):
     """Return a function that returns the average value of ORIGINAL_FUNCTION
     called TOTAL_SAMPLES times.
 
@@ -238,9 +238,16 @@ def make_averaged(original_function, total_samples=1000):
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
     # END PROBLEM 8
+    def ret(*args):
+        sum, i = 0, 0
+        while i < num_samples:
+            sum, i = sum + fn(*args), i + 1
+        return sum / num_samples
+
+    return ret
 
 
-def max_scoring_num_rolls(dice=six_sided, total_samples=1000):
+def max_scoring_num_rolls(dice=six_sided, total_samples=100):
     """Return the number of dice (1 to 10) that gives the highest average turn score
     by calling roll_dice with the provided DICE a total of TOTAL_SAMPLES times.
     Assume that the dice always return positive outcomes.
@@ -252,7 +259,17 @@ def max_scoring_num_rolls(dice=six_sided, total_samples=1000):
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
     # END PROBLEM 9
-
+    max = 0
+    n=1
+    score=0
+    do = make_averaged(roll_dice,total_samples)
+    while n<=10:
+        a = do(n,dice)
+        if score < a:
+            max = n
+            score=a
+        n+=1
+    return max
 
 def winner(strategy0, strategy1):
     """Return 0 if strategy0 wins against strategy1, and 1 otherwise."""
@@ -294,6 +311,8 @@ def tail_strategy(score, opponent_score, threshold=12, num_rolls=6):
     points, and returns NUM_ROLLS otherwise. Ignore score and Square Swine.
     """
     # BEGIN PROBLEM 10
+    if tail_points(opponent_score)>=threshold:
+        return 0
     return num_rolls  # Remove this line once implemented.
     # END PROBLEM 10
 
@@ -301,6 +320,11 @@ def tail_strategy(score, opponent_score, threshold=12, num_rolls=6):
 def square_strategy(score, opponent_score, threshold=12, num_rolls=6):
     """This strategy returns 0 dice when your score would increase by at least threshold."""
     # BEGIN PROBLEM 11
+    a = tail_points(opponent_score)
+    if(perfect_square(a + score)):
+        a=next_perfect_square(a + score)-score
+    if a>threshold:
+        return 0
     return num_rolls  # Remove this line once implemented.
     # END PROBLEM 11
 
