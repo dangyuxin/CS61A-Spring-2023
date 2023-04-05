@@ -14,6 +14,6 @@ if a == '1':
     match b:
         case 'a':
             print("Type two numbers to compute them")
-            c, d = input("Please type the first number:"),input("Please type the second number:")
+            c, d = input("Please type the first number:"), input(
+                "Please type the second number:")
             print("The result is ", int(c) + int(d))
-

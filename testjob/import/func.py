@@ -2,4 +2,3 @@
 def func():
     print("hello,world")
     return
-
