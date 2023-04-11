@@ -1,3 +1,6 @@
+from math import sqrt
+
+
 def flatten(s):
     """Returns a flattened version of list s.
 
@@ -25,6 +28,20 @@ def flatten(s):
     [[1, [1, [1, [1, 1, [1, 1, [1]]]], 1]]]
     """
     "*** YOUR CODE HERE ***"
+    def helper(s, res):
+        for i in s:
+            if type(i) == int:
+                res.append(i)
+            else:
+                helper(i, res)
+
+    list = []
+    for i in s:
+        if type(i) == int:
+            list.append(i)
+        else:
+            helper(i, list)
+    return list
 
 
 def my_map(fn, seq):
@@ -39,7 +56,7 @@ def my_map(fn, seq):
     2023
     [None, None, None]
     """
-    return ______
+    return [fn(i) for i in seq]
 
 
 def my_filter(pred, seq):
@@ -58,7 +75,7 @@ def my_filter(pred, seq):
     >>> my_filter(lambda x: max(5, x) == 5, [1, 2, 3, 4, 5, 6, 7])
     [1, 2, 3, 4, 5]
     """
-    return ______
+    return [i for i in seq if pred(i)]
 
 
 def my_reduce(combiner, seq):
@@ -74,6 +91,10 @@ def my_reduce(combiner, seq):
     11
     """
     "*** YOUR CODE HERE ***"
+    total = seq[0]
+    for elem in seq[1:]:
+        total = combiner(total, elem)
+    return total
 
 
 def my_map_syntax_check():
@@ -98,9 +119,6 @@ def my_filter_syntax_check():
     # You don't need to edit this function. It's just here to check your work.
 
 
-from math import sqrt
-
-
 def distance(city_a, city_b):
     """
     >>> city_a = make_city('city_a', 0, 1)
@@ -113,6 +131,8 @@ def distance(city_a, city_b):
     5.0
     """
     "*** YOUR CODE HERE ***"
+    a, b = (get_lat(city_a)-get_lat(city_b)), (get_lon(city_a)-get_lon(city_b))
+    return sqrt(a*a+b*b)
 
 
 def closer_city(lat, lon, city_a, city_b):
@@ -131,6 +151,10 @@ def closer_city(lat, lon, city_a, city_b):
     'Bucharest'
     """
     "*** YOUR CODE HERE ***"
+    c = make_city('destination', lat, lon)
+    if (distance(c, city_a) < distance(c, city_b)):
+        return get_name(city_a)
+    return get_name(city_b)
 
 
 def check_city_abstraction():
