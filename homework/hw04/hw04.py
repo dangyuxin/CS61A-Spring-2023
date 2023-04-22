@@ -65,12 +65,14 @@ def planet(mass):
     """Construct a planet of some mass."""
     assert mass > 0
     "*** YOUR CODE HERE ***"
+    return ['planet', mass]
 
 
 def mass(w):
     """Select the mass of a planet."""
     assert is_planet(w), 'must call mass on a planet'
     "*** YOUR CODE HERE ***"
+    return w[1]
 
 
 def is_planet(w):
@@ -127,6 +129,13 @@ def balanced(m):
     True
     """
     "*** YOUR CODE HERE ***"
+    if is_planet(m):
+        return True
+    else:
+        left_end, right_end = end(left(m)), end(right(m))
+        torque_left = length(left(m)) * total_weight(left_end)
+        torque_right = length(right(m)) * total_weight(right_end)
+        return torque_left == torque_right and balanced(left_end) and balanced(right_end)
 
 
 def totals_tree(m):
@@ -159,6 +168,9 @@ def totals_tree(m):
     True
     """
     "*** YOUR CODE HERE ***"
+    if is_planet(m):
+        return [mass(m)]
+    return [total_weight(m), totals_tree(end(left(m))), totals_tree(end(right(m)))]
 
 
 def replace_loki_at_leaf(t, lokis_replacement):
@@ -191,6 +203,11 @@ def replace_loki_at_leaf(t, lokis_replacement):
     True
     """
     "*** YOUR CODE HERE ***"
+    if is_leaf(t) and label(t) == "loki":
+        return tree(lokis_replacement)
+    else:
+        bs = [replace_loki_at_leaf(b, lokis_replacement) for b in branches(t)]
+        return tree(label(t), bs)
 
 
 def has_path(t, word):
@@ -225,6 +242,14 @@ def has_path(t, word):
     """
     assert len(word) > 0, 'no path for empty word.'
     "*** YOUR CODE HERE ***"
+    if label(t) != word[0]:
+        return False
+    elif len(word) == 1:
+        return True
+    for b in branches(t):
+        if has_path(b, word[1:]):
+            return True
+    return False
 
 
 def str_interval(x):
