@@ -9,6 +9,18 @@ def hailstone(n):
     1
     """
     "*** YOUR CODE HERE ***"
+    i = n
+    yield n
+    while n > 0:
+        if i == 1:
+            yield 1
+        elif i % 2 == 0:
+            yield i//2
+            i //= 2
+        else:
+            yield i*3+1
+            i = i*3+1
+        n -= 1
 
 
 def merge(a, b):
@@ -24,6 +36,18 @@ def merge(a, b):
     [2, 3, 5, 7, 8, 9, 11, 13, 14, 15]
     """
     "*** YOUR CODE HERE ***"
+    x, y = next(a), next(b)
+    while True:
+        if x < y:
+            yield x
+            x = next(a)
+        elif x == y:
+            yield y
+            x = next(a)
+            y = next(b)
+        else:
+            yield y
+            y = next(b)
 
 
 def perms(seq):
@@ -41,7 +65,7 @@ def perms(seq):
     ... except StopIteration:
     ...     print('No more permutations!')
     No more permutations!
-    >>> sorted(perms([1, 2, 3])) # Returns a sorted list containing elements of the generator
+    >>> sorted(perms([1, 2, 3]))
     [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
     >>> sorted(perms((10, 20, 30)))
     [[10, 20, 30], [10, 30, 20], [20, 10, 30], [20, 30, 10], [30, 10, 20], [30, 20, 10]]
@@ -49,6 +73,12 @@ def perms(seq):
     [['a', 'b'], ['b', 'a']]
     """
     "*** YOUR CODE HERE ***"
+    if not seq:
+        yield []
+    else:
+        for p in perms(seq[1:]):
+            for i in range(len(seq)):
+                yield p[:i] + [seq[0]] + p[i:]
 
 
 def yield_paths(t, value):
@@ -86,9 +116,12 @@ def yield_paths(t, value):
     [[0, 2], [0, 2, 1, 2]]
     """
     "*** YOUR CODE HERE ***"
-    for _______________ in _________________:
-        for _______________ in _________________:
-            "*** YOUR CODE HERE ***"
+    if label(t) == value:
+        yield [value]
+    for b in branches(t):
+        for path in yield_paths(b, value):
+            yield [label(t)] + path
+    "*** YOUR CODE HERE ***"
 
 
 def remainders_generator(m):
@@ -123,6 +156,12 @@ def remainders_generator(m):
     11
     """
     "*** YOUR CODE HERE ***"
+    def gen(i):
+        for e in naturals():
+            if e % m == i:
+                yield e
+    for i in range(m):
+        yield gen(i)
 
 
 # Tree ADT
