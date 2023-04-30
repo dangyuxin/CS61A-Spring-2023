@@ -1,12 +1,15 @@
 def amplify(f, x):
     """Yield the longest sequence x, f(x), f(f(x)), ... that are all true values
-    
+
     >>> list(amplify(lambda s: s[1:], 'boxes'))
     ['boxes', 'oxes', 'xes', 'es', 's']
     >>> list(amplify(lambda x: x//2-1, 14))
     [14, 6, 2]
     """
     "*** YOUR CODE HERE ***"
+    while x:
+        yield x
+        x = f(x)
 
 
 class Person:
@@ -32,19 +35,24 @@ class Person:
     def __init__(self, name):
         self.name = name
         "*** YOUR CODE HERE ***"
+        self.pre = 'I squirreled it away before it could catch on fire.'
 
     def say(self, stuff):
         "*** YOUR CODE HERE ***"
+        self.pre = stuff
         return stuff
 
     def ask(self, stuff):
+        self.pre = stuff
         return self.say("Would you please " + stuff)
 
     def greet(self):
+        self.pre = "Hello, my name is " + self.name
         return self.say("Hello, my name is " + self.name)
 
     def repeat(self):
         "*** YOUR CODE HERE ***"
+        return self.say(self.pre)
 
 
 class SmartFridge:
@@ -71,9 +79,23 @@ class SmartFridge:
 
     def add_item(self, item, quantity):
         "*** YOUR CODE HERE ***"
+        if item in self.items:
+            self.items[item] += quantity
+        else:
+            self.items[item] = quantity
+        return 'I now have ' + str(self.items[item])+' '+str(item)
 
     def use_item(self, item, quantity):
         "*** YOUR CODE HERE ***"
+        if item in self.items:
+            self.items[item] -= quantity
+        else:
+            self.items[item] = quantity
+        if self.items[item] > 0:
+            return 'I have ' + str(self.items[item])+' '+str(item)+' left'
+        else:
+            self.items[item] = 0
+            return 'Oh no, we need more '+str(item)+'!'
 
 
 class CucumberGame:
