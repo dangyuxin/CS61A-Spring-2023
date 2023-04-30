@@ -30,6 +30,14 @@ def insert_items(lst, entry, elem):
     True
     """
     "*** YOUR CODE HERE ***"
+    index = 0
+    while index < len(lst):
+        if lst[index] == entry:
+            lst.insert(index + 1, elem)
+            if entry == elem:
+                index += 1
+        index += 1
+    return lst
 
 
 def count_occurrences(t, n, x):
@@ -53,6 +61,12 @@ def count_occurrences(t, n, x):
     2
     """
     "*** YOUR CODE HERE ***"
+    count = 0
+    while n > 0:
+        if next(t) == x:
+            count += 1
+        n -= 1
+    return count
 
 
 def repeated(t, k):
@@ -78,6 +92,17 @@ def repeated(t, k):
     """
     assert k > 1
     "*** YOUR CODE HERE ***"
+    count = 1
+    last_item = None
+    while True:
+        item = next(t)
+        if item == last_item:
+            count += 1
+        else:
+            last_item = item
+            count = 1
+        if count == k:
+            return item
 
 
 def partial_reverse(lst, start):
@@ -93,6 +118,11 @@ def partial_reverse(lst, start):
     [1, 2, 7, 6, 5, 3, 4]
     """
     "*** YOUR CODE HERE ***"
+    i, j = start, len(lst)-1
+    while i < j:
+        lst[i], lst[j] = lst[j], lst[i]
+        i += 1
+        j -= 1
 
 
 def index_largest(seq):
@@ -105,6 +135,13 @@ def index_largest(seq):
     """
     assert len(seq) > 0
     "*** YOUR CODE HERE ***"
+    max = 0
+    i = 0
+    while i < len(seq):
+        if seq[i] > seq[max]:
+            max = i
+        i += 1
+    return max
 
 
 def pizza_sort(lst):
@@ -116,11 +153,11 @@ def pizza_sort(lst):
     >>> a
     [9, 8, 7, 5, 3, 2, 1]
     """
-    pizza_sort_helper(________, ________)
+    pizza_sort_helper(lst, 0)
 
 
 def pizza_sort_helper(lst, start):
-    if _______________:
-        partial_reverse(________, ________)
-        partial_reverse(________, ________)
-        _______________(________, ________)
+    if start < len(lst)-1:
+        partial_reverse(lst, start + index_largest(lst[start:]))
+        partial_reverse(lst, start)
+        pizza_sort_helper(lst, start + 1)
