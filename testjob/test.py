@@ -16,3 +16,11 @@ def grow(n):
 
 def shrink(n):
     f_then_g(print, shrink, n//10)
+
+
+# 写一个冒泡排序
+def bubble_sort(lst):
+    for i in range(len(lst)):
+        for j in range(i+1, len(lst)):
+            if lst[i] > lst[j]:
+                lst[i], lst[j] = lst[j], lst[i]
