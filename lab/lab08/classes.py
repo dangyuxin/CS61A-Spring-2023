@@ -91,6 +91,10 @@ class Player:
         while i < 5:
             self.hand.append(self.deck.draw())
             i += 1
+        """
+            The answer:
+            self.hand=[deck.draw() for _ in range(5)]
+        """
 
     def draw(self):
         """Draw a card from the player's deck and add it to their hand.
@@ -125,6 +129,15 @@ class Player:
         a = self.hand[index]
         del self.hand[index]
         return a
+
+        """
+            The anwser:
+            return self.hand.pop(index)
+
+            At first,I said return self.hand.pop[index],that's
+            funny.I've forgotten the pop is a function.
+            Please use() instead of []!!!
+        """
 
     def display_hand(self):
         """
