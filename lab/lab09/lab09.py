@@ -8,6 +8,11 @@ def make_even(t):
     4
     """
     "*** YOUR CODE HERE ***"
+    if t.label % 2 == 1:
+        t.label += 1
+    if not t.is_leaf():
+        for i in t.branches:
+            make_even(i)
 
 
 def cumulative_mul(t):
@@ -24,6 +29,10 @@ def cumulative_mul(t):
     Tree(5040, [Tree(60, [Tree(3), Tree(4), Tree(5)]), Tree(42, [Tree(7)])])
     """
     "*** YOUR CODE HERE ***"
+    for i in t.branches:
+        cumulative_mul(i)
+    for i in t.branches:
+        t.label *= i.label
 
 
 def prune_small(t, n):
@@ -43,11 +52,11 @@ def prune_small(t, n):
     >>> t3
     Tree(6, [Tree(1), Tree(3, [Tree(1), Tree(2)])])
     """
-    while ___________________________:
-        largest = max(_______________, key=____________________)
-        _________________________
-    for __ in _____________:
-        ___________________
+    while len(t.branches) > n:
+        largest = max(t.branches, key=lambda x: x.label)
+        t.branches.remove(largest)
+    for b in t.branches:
+        prune_small(b, n)
 
 
 def is_bst(t):
@@ -76,6 +85,35 @@ def is_bst(t):
     False
     """
     "*** YOUR CODE HERE ***"
+    def helper(t):
+        if t.is_leaf():
+            return True
+        if len(t.branches) == 2:
+            if t.branches[0].label > t.label or t.branches[1].label < t.label:
+                return False
+        if len(t.branches) == 1:
+            if t.branches[0].label > t.label:
+                return helper2(t.branches[0])
+            else:
+                return helper3(t.branches[0])
+        else:
+            return helper(t.branches[0]) and helper(t.branches[1])
+
+    def helper2(t):
+        if t.is_leaf():
+            return True
+        if t.branches[0].label < t.label:
+            return False
+        return helper2(t.branches[0])
+
+    def helper3(t):
+        if t.is_leaf():
+            return True
+        if t.branches[0].label > t.label:
+            return False
+        return helper3(t.branches[0])
+
+    return helper(t)
 
 
 def add_trees(t1, t2):
