@@ -291,6 +291,15 @@ def report_progress(typed, prompt, user_id, upload):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+    score = 0
+    for i in range(0, len(typed)):
+        if typed[i] != prompt[i]:
+            break
+        score += 1
+    score = score/len(prompt)
+    res = {'id': user_id, 'progress': score}
+    upload(res)
+    return score
     # END PROBLEM 8
 
 
@@ -313,6 +322,13 @@ def time_per_word(words, times_per_player):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
+    time = []
+    for i in times_per_player:
+        append = []
+        for j in range(1, len(i)):
+            append.append(i[j]-i[j-1])
+        time.append(append)
+    return match(words, time)
     # END PROBLEM 9
 
 
@@ -337,6 +353,18 @@ def fastest_words(match):
     word_indices = range(len(get_all_words(match)))
     # BEGIN PROBLEM 10
     "*** YOUR CODE HERE ***"
+    a = [[]for i in player_indices]
+    i, j = 0, 0
+    words = get_all_words(match)
+    times = get_all_times(match)
+    for i in word_indices:
+        min = 0
+        for j in player_indices:
+            if times[j][i] < times[min][i]:
+                min = j
+        a[min] += [words[i]]
+    return a
+
     # END PROBLEM 10
 
 
